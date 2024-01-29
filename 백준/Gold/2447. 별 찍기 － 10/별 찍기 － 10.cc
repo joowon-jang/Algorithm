@@ -3,7 +3,6 @@
 using namespace std;
 
 char arr[10000][10000];
-bool visit[10000][10000]={0};
 int n;
 
 void recursion(int a, int r, int c) {
