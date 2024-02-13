@@ -14,8 +14,6 @@ int main()
     char str[1001];
     X dp[1001];
     
-    int dist=0;
-    
     cin >> n;
     str[0]='J';
     for(int i=1; i<=n; i++) {
