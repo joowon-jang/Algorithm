@@ -44,22 +44,21 @@ int main()
     cin >> n >> m >> x;
     
     vector<vector<pair<int,int>>> graph(n+1,vector<pair<int,int>>(0));
-    vector<vector<int>> dists;
+    vector<vector<pair<int,int>>> graph2(n+1,vector<pair<int,int>>(0));
+    
     
     for(int i=0; i<m; i++) {
         int from, to, t;
         cin >> from >> to >> t;
         graph[from].push_back({to,t});
+        graph2[to].push_back({from,t});
     }
     
-    vector<int> v(0);
-    dists.push_back(v);
-    for(int i=1; i<=n; i++) {
-        dists.push_back(dijkstra(graph, i));
-    }
+    vector<int> dist1 = dijkstra(graph,x);
+    vector<int> dist2 = dijkstra(graph2,x);
     
     for(int i=1; i<=n; i++) {
-        ans = max(ans, dists[i][x]+dists[x][i]);
+        ans = max(ans, dist1[i]+dist2[i]);
     }
     
     cout << ans;
