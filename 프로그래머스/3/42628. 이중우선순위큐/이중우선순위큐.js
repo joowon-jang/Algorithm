@@ -57,30 +57,29 @@ function solution(operations) {
     let answer = [];
     const minHeap = new Heap(true);
     const maxHeap = new Heap(false);
+    let cnt = new Map();
     
     for(const operation of operations) {
         const [op, num] = operation.split(" ");
         
-        switch(op) {
-            case 'I': 
-                minHeap.insert(Number(num));
-                maxHeap.insert(Number(num));
-            break;
-            case 'D':
-                if(num == -1) {
-                    const top = minHeap.remove();
-                    maxHeap.heap = maxHeap.heap.filter(node => node !== top);
-                }
-                if(num == 1) {
-                    const top = maxHeap.remove();
-                    minHeap.heap = minHeap.heap.filter(node => node !== top);
-                }
-            break;
+        if(op === 'I') {
+            const nNum = Number(num);
+            minHeap.insert(nNum);
+            maxHeap.insert(nNum);
+            cnt.set(nNum, (cnt.get(nNum) || 0) + 1);
+        }
+        if(op === 'D') {
+            let top;
+            if(num == -1) top = minHeap.remove();
+            if(num == 1) top = maxHeap.remove();
+            if(top) cnt.set(top, cnt.get(top) - 1);
+            
+            while(minHeap.length !== 0 && cnt.get(minHeap.heap[0]) === 0) minHeap.remove();
+            while(maxHeap.length !== 0 && cnt.get(maxHeap.heap[0]) === 0) maxHeap.remove();
         }
     }
     
     answer = [maxHeap.heap[0], minHeap.heap[0]];
-    console.log(maxHeap, minHeap);
     if(!answer[0]) answer[0] = 0;
     if(!answer[1]) answer[1] = 0;
     
