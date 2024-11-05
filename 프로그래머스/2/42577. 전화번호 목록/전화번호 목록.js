@@ -1,11 +1,13 @@
 function solution(phone_book) {
-    const dict = new Set(phone_book);
+    let answer = true;
     
-    for(const phoneNumber of phone_book) {
-        for(let i=1; i<phoneNumber.length; i++) {
-            if(dict.has(phoneNumber.slice(0, i))) return false;
+    phone_book.sort();
+    for(let i=0; i<phone_book.length-1; i++) {
+        if(phone_book[i + 1].startsWith(phone_book[i])) {
+            answer = false;
+            break;
         }
     }
     
-    return true;
+    return answer;
 }
