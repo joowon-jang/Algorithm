@@ -1,6 +1,11 @@
 function solution(phone_book) {
-    return !phone_book.sort().some((el, index, array) => {
-        if(index === array.length - 1) return false;
-        return array[index + 1].startsWith(array[index]);
-    })
+    const dict = new Set(phone_book);
+    
+    for(const phoneNumber of phone_book) {
+        for(let i=1; i<phoneNumber.length; i++) {
+            if(dict.has(phoneNumber.slice(0, i))) return false;
+        }
+    }
+    
+    return true;
 }
