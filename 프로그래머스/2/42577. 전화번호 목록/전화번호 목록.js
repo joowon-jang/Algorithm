@@ -1,4 +1,5 @@
 function solution(phone_book) {
+    phone_book.sort();
     const dict = new Set(phone_book);
     
     for(const phoneNumber of phone_book) {
