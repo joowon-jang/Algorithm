@@ -12,14 +12,24 @@ function solution(genres, plays) {
     mapToArr.sort((a, b) => b[1].reduce((acc, curr) => acc + plays[curr], 0) - a[1].reduce((acc, curr) => acc + plays[curr], 0));
     
     for(let i=0; i<mapToArr.length; i++) {
-        const arr = mapToArr[i][1];
-        arr.sort((a, b) => plays[b] - plays[a]);
-        answer.push(arr[0]);
-        if(arr.length >= 2) answer.push(arr[1]);
+        const indexes = mapToArr[i][1];
+
+        let first = indexes[0];
+        let second = -1;
+        
+        for(let j=1; j<indexes.length; j++) {
+            if(plays[first] < plays[indexes[j]]) {
+                second = first;
+                first = indexes[j];
+            } else if(second === -1 || plays[second] < plays[indexes[j]]) {
+                second = indexes[j];
+            }
+        }
+        
+        answer.push(first);
+        if(second !== -1) answer.push(second);
         
     }
-    
-    
     
     return answer;
 }
