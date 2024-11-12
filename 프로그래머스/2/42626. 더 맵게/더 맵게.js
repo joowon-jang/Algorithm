@@ -53,7 +53,7 @@ function solution(scoville, K) {
     
     scoville.forEach(sc => minHeap.insert(sc));
     
-    while(minHeap.heap.some(sc => sc < K)) {
+    while(minHeap.heap[0] < K) {
         const first = minHeap.remove();
         if(minHeap.heap.length === 0) {
             return -1;
