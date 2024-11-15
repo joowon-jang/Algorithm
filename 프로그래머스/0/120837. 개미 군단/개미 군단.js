@@ -1,9 +1,3 @@
 function solution(hp) {
-    const dp = [0, 1, 2, 1, 2, 1];
-    
-    for(let i=6; i<=hp; i++) {
-        dp.push(Math.min(dp[i-5]+1, dp[i-3]+1, dp[i-1]+1));
-    }
-    
-    return dp[hp];
+    return Math.floor(hp/5) + Math.floor((hp%5)/3) + (hp%5)%3;
 }
