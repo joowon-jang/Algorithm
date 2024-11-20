@@ -1,7 +1,20 @@
+function getCases(candidate, index, caseArr, result) {
+    if(index === candidate.length) {
+        result.push(caseArr.sort().join(''));
+        return;
+    }
+
+    for(let i = 0; i < candidate[index].length; i++) {
+        if(caseArr.includes(candidate[index][i])) continue;
+        const nextCaseArr = [...caseArr, candidate[index][i]];
+        getCases(candidate, index + 1, nextCaseArr, result);
+    }
+    
+    return result;
+}
+
 function solution(user_id, banned_id) {
     let answer = 0;
-    const cases = new Set();
-    
     const candidate = [];
     
     for(let i = 0; i < banned_id.length; i++) {
@@ -20,21 +33,7 @@ function solution(user_id, banned_id) {
         if(tmp.length >= 1) candidate.push(tmp);
     }
     
-    function getCases(index, caseArr) {
-        if(index === candidate.length) {
-            cases.add(caseArr.sort().join(''));
-            return;
-        }
-        
-        for(let i = 0; i < candidate[index].length; i++) {
-            if(caseArr.includes(candidate[index][i])) continue;
-            const nextCaseArr = [...caseArr];
-            nextCaseArr.push(candidate[index][i]);
-            getCases(index + 1, nextCaseArr);
-        }
-    }
-    
-    getCases(0, []);
+    const cases = new Set(getCases(candidate, 0, [], []));
     
     return cases.size;
 }
