@@ -1,16 +1,16 @@
 function getDists(graph, start) {
     const visited = Array.from({ length : graph.length }, () => false);
     const dists = Array.from({ length : graph.length }, () => 0);
-    const q = [[start, 0]];
+    const q = [start];
     visited[start] = true;
     
     while(q.length > 0) {
-        const [currNode, currDist] = q.shift();
-        dists[currNode] = currDist;
+        const currNode = q.shift();
         
         for(const nextNode of graph[currNode]) {
             if(visited[nextNode]) continue;
-            q.push([nextNode, currDist + 1]);
+            q.push(nextNode);
+            dists[nextNode] = dists[currNode] + 1;
             visited[nextNode] = true;
         }
     }
