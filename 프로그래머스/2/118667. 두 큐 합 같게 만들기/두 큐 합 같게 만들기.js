@@ -8,18 +8,16 @@ function solution(queue1, queue2) {
     
     while(sum1 !== sum2) {
         if(sum1 > sum2) {
-            const tmp = queue1[idx1];
+            const tmp = queue1[idx1++];
             queue2.push(tmp);
             sum1 -= tmp;
             sum2 += tmp;
-            idx1++;
         }
         else {
-            const tmp = queue2[idx2];
+            const tmp = queue2[idx2++];
             queue1.push(tmp);
             sum2 -= tmp;
             sum1 += tmp;
-            idx2++;
         }
         answer++;
         if(idx1 > len || idx2 > len) return -1;
