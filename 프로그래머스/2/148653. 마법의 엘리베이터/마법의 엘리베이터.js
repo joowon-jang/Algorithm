@@ -1,21 +1,6 @@
 function solution(storey) {
-    let answer = 0;
-    
-    while(storey > 0) {
-        if(storey % 10 < 5) {
-            answer += storey % 10;
-            storey = Math.floor(storey/10);
-        }
-        else if(storey % 10 === 5 && storey / 10 % 10 < 5) {
-            answer += storey % 10;
-            storey = Math.floor(storey/10);
-        }
-        else {
-            answer += 10 - storey % 10;
-            storey = Math.floor(storey/10);
-            storey++;
-        }
-    }
-    
-    return answer;
+    if (storey < 5) return storey;
+    const r = storey % 10;
+    const m = (storey - r) / 10;
+    return Math.min(r + solution(m), 10 - r + solution(m + 1));
 }
