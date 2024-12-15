@@ -12,11 +12,7 @@ function solution(tickets) {
             if(used[i] || tickets[i][0] !== curr) continue;
             
             used[i] = true;
-            
-            const newRoutes = Array.from(routes);
-            newRoutes.push(tickets[i][1]);
-            dfs(tickets[i][1], cnt + 1, newRoutes);
-            
+            dfs(tickets[i][1], cnt + 1, [...routes, tickets[i][1]]);
             used[i] = false;
         }
     }
