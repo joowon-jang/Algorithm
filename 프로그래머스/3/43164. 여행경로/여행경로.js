@@ -1,11 +1,11 @@
 function solution(tickets) {
     tickets.sort();
-    const answer = [];
+    let answer = null;
     const used = Array.from({ length: tickets.length }, () => false);
 
     function dfs(curr, cnt, routes) {
         if(cnt === tickets.length) {
-            answer.push(routes);
+            answer = routes;
             return;
         }
         for(let i = 0; i < tickets.length; i++) {
@@ -14,10 +14,12 @@ function solution(tickets) {
             used[i] = true;
             dfs(tickets[i][1], cnt + 1, [...routes, tickets[i][1]]);
             used[i] = false;
+            
+            if(answer) return;
         }
     }
     
     dfs('ICN', 0, ['ICN']);
     
-    return answer[0];
+    return answer;
 }
