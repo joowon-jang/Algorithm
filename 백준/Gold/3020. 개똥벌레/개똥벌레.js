@@ -21,13 +21,15 @@ function solution(N, H, obstacles) {
     bottom[H - i] += bottom[H - i + 1];
   }
 
-  const total = [];
+  let min = Infinity;
+  let cnt = 0;
   for (let i = 1; i <= H; i++) {
-    total.push(top[i] + bottom[i]);
+    if (top[i] + bottom[i] <= min) {
+      if (top[i] + bottom[i] !== min) cnt = 0;
+      min = top[i] + bottom[i];
+      cnt++;
+    }
   }
-
-  const min = Math.min(...total);
-  const cnt = total.filter((num) => num === min).length;
 
   return [min, cnt];
 }
