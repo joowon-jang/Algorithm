@@ -1,7 +1,7 @@
 const fs = require("fs");
-// 입력 파일 읽기
-const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
-// 입력 파싱
+const filePath = process.platform === "linux" ? "dev/stdin" : "input.txt";
+const input = fs.readFileSync(filePath).toString().trim().split("\n");
+
 const [N, d, k, c] = input[0].split(" ").map(Number);
 const sushies = input.slice(1).map(Number);
 
@@ -11,8 +11,8 @@ console.log(solution(N, d, k, c, sushies));
 // 풀이
 function solution(N, d, k, c, sushies) {
   let answer = 0;
-  
-  const extendedSushies = sushies.concat(sushies);
+
+  const extendedSushies = sushies.concat(sushies.slice(0, k));
 
   const sushiMap = new Map();
   let kind = 0;
