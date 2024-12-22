@@ -9,20 +9,20 @@ console.log(solution(N, S, arr));
 
 function solution(N, S, arr) {
   let answer = Infinity;
-  const psum = [0];
 
-  for (let i = 0; i < N; i++) {
-    psum.push(psum[psum.length - 1] + arr[i]);
-  }
+  let left = -1;
+  let right = 0;
+  let sum = arr[0];
 
-  let left = 0;
-  let right = 1;
-
-  while (right <= N) {
-    if (psum[right] - psum[left] >= S) {
+  while (right < N && left < right) {
+    if (sum >= S) {
       answer = Math.min(answer, right - left);
       left++;
-    } else right++;
+      sum -= arr[left];
+    } else {
+      right++;
+      sum += arr[right];
+    }
   }
 
   return answer === Infinity ? 0 : answer;
