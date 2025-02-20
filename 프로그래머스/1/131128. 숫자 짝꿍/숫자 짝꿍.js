@@ -19,9 +19,9 @@ function solution(X, Y) {
         }
     }
     
-    pair.sort((a, b) => a - b);
+    pair.sort((a, b) => b - a);
     
-    while(pair.length > 0) answer += pair.pop();
+    answer = pair.join('');
     
     if(answer === '') answer = "-1";
     else if(answer == 0) answer = "0";
