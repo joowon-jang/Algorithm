@@ -3,7 +3,6 @@ function checkTree(tree, a, b) {
     
     const q = [];
     let cntA = 0;
-    let cntB = 0;
     
     q.push(a);
     visited[a] = true;
@@ -20,24 +19,7 @@ function checkTree(tree, a, b) {
         })
     }
     
-    visited.fill(false);
-    
-    q.push(b);
-    visited[b] = true;
-    
-    while(q.length > 0) {
-        const curr = q.shift();
-        cntB++;
-        
-        tree[curr].forEach(node => {
-            if(node === a) return;
-            if(visited[node]) return;
-            q.push(node);
-            visited[node] = true;
-        })
-    }
-    
-    return Math.abs(cntA - cntB);
+    return cntA;
 }
 
 function solution(n, wires) {
@@ -50,7 +32,8 @@ function solution(n, wires) {
     });
     
     wires.forEach(wire => {
-        answer = Math.min(answer, checkTree(tree, wire[0], wire[1]));
+        const cntA = checkTree(tree, wire[0], wire[1]);
+        answer = Math.min(answer, Math.abs(cntA - (n - cntA)));
         if(answer === 0) return;
     })
     
